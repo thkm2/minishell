@@ -1,10 +1,6 @@
 #include "../mini.h"
-#include <unistd.h>
-#include <sys/wait.h>
 
-void	ft_free_split(char **tab);
-
-char	*find_path(char *command, char **envp)
+char	*find_path(char *command)
 {
 	char	**paths;
 	char	*path;
@@ -14,9 +10,7 @@ char	*find_path(char *command, char **envp)
 	i = 0;
 	if (access(command, X_OK) == 0)
 		return (command);
-	while (envp[i] && ft_strncmp(envp[i], "PATH=", 5) != 0)
-		i++;
-	paths = ft_split(envp[i] + 5, ':');
+	paths = ft_split(getenv("PATH"), ':');
 	i = 0;
 	while (paths[i])
 	{
@@ -42,14 +36,23 @@ void	child_process_for_externs(char *s, char **envp)
 	pid_t 	pid;
 
 	av_command = ft_split(s, ' ');
-	path = find_path(av_command[0], envp);
+	path = find_path(av_command[0]);
 	if (!path)
+	{
+		ft_printf("minishell: command not found: %s\n", av_command[0]);
+		ft_free_split(av_command);
 		return ;
+	}
 	pid = fork();
 	if (pid == -1)
+	{
+		ft_free_split(av_command);
+		free(path);
 		return ;
+	}
 	if (pid == 0)
 		execve(path, av_command, envp);
 	ft_free_split(av_command);
+	free(path);
 	waitpid(pid, NULL, 0);
 }

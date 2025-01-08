@@ -1,21 +1,23 @@
 #include "mini.h"
 
-void	child_process_for_externs(char *s, char **envp);
-
 int main(int ac, char **av, char **envp)
 {
 	char *line;
-	line = readline("dis moi tout > ");
-	while(1)
+
+	(void)ac;
+	(void)av;
+	line = readline(PROMPT);
+	while(ft_strncmp(line, "exit", 4))
 	{
-		child_process_for_externs(line, envp);
-		add_history(line);
-		free(line);
-		line = readline("dis moi tout > ");
+		if (*line)
+		{
+			child_process_for_externs(line, envp);
+			add_history(line);
+			free(line);
+		}
+		line = readline(PROMPT);
 	}
-	clear_history();
+	rl_clear_history();
 	free(line);
-	ac++;
-	av++;
 	return (0);
 }
