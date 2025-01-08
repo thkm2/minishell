@@ -1,51 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kgiraud <kgiraud@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/08 13:28:50 by kgiraud           #+#    #+#             */
-/*   Updated: 2025/01/08 15:21:38 by kgiraud          ###   ########.fr       */
+/*   Created: 2025/01/08 15:39:51 by kgiraud           #+#    #+#             */
+/*   Updated: 2025/01/08 15:55:06 by kgiraud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mini.h"
 
-int	is_n_option(char *s)
+void	ft_pwd(void)
 {
-	if (!s || !*s)
-		return (0);
-	if (*s != '-')
-		return (0);
-	s++;
-	while (*s)
-	{
-		if (*s != 'n')
-			return (0);
-		s++;
-	}
-	return (1);
-}
+	char	*pwd;
 
-void	ft_echo(char **av)
-{
-	int	i;
-	int	opt;
-
-	i = 1;
-	opt = 0;
-	while (av[i] && is_n_option(av[i]))
+	pwd = getcwd(NULL, 0);
+	if (!pwd)
 	{
-		opt = 1;
-		i++;
+		perror("minishell: pwd error");
+		return	;
 	}
-	while (av[i])
-	{
-		ft_printf("%s", av[i++]);
-		if (av[i])
-			ft_printf(" ");
-	}
-	if (!opt)
-		ft_printf("\n");
+	ft_printf("%s\n", pwd);
+	free(pwd);
 }
