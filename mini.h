@@ -20,10 +20,6 @@
 void	child_process_for_externs(char *s, char **envp);
 void	ft_free_split(char **tab);
 
-// envp
-void	add_env_node(t_env **env, char *name, char *value);
-void	init_envp(t_env **env, char **envp);
-
 # define PROMPT " > "
 
 // define commands
@@ -54,5 +50,9 @@ typedef struct s_env
 
 int	which_cmd(char *cmd);
 int	is_special(char c);
+
+// envp
+void	add_env_node(t_env **env, char *name, char *value);
+void	init_envp(t_env **env, char **envp);
 
 #endif

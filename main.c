@@ -1,5 +1,9 @@
 #include "mini.h"
 
+void	ft_echo(char **av);
+void	ft_env(t_env *env);
+void	ft_pwd(void);
+
 int main(int ac, char **av, char **envp)
 {
 	char 	*line;
@@ -14,13 +18,29 @@ int main(int ac, char **av, char **envp)
 	{
 		if (*line)
 		{
-			child_process_for_externs(line, envp);
+			if (ft_strncmp(line, "echo", 4) == 0)
+			{
+				printf("built-in echo\n");
+				ft_echo(ft_split(line, ' '));
+			}
+			else if (ft_strncmp(line, "env", 4) == 0)
+			{
+				printf("built-in env\n");
+				ft_env(env);
+			}
+			else if (ft_strncmp(line, "pwd", 3) == 0)
+			{
+				printf("built-in pwd\n");
+				ft_pwd();
+			}
+			else
+				child_process_for_externs(line, envp);
 			add_history(line);
 			free(line);
 		}
 		line = readline(PROMPT);
 	}
-	rl_clear_history();
+	clear_history();
 	free(line);
 	return (0);
 }

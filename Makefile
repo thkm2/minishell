@@ -4,7 +4,9 @@ CC = cc -g -Wall -Wextra -Werror
 
 RM = rm -f
 
-SRC = main.c externs/externs.c externs/externs_utils.c
+SRC = main.c externs/externs.c externs/externs_utils.c \
+		envp/envp.c envp/utils.c \
+		builtins/echo.c builtins/env.c builtins/pwd.c
 
 OBJ = ${SRC:.c=.o}
 
