@@ -3,21 +3,24 @@
 int main(int ac, char **av, char **envp)
 {
 	char 	*line;
+	t_env	*env;
 
 	(void)ac;
 	(void)av;
-	line = readline(" >");
+	line = readline(PROMPT);
+	env = NULL;
+	init_envp(&env, envp);
 	while(ft_strncmp(line, "exit", 4))
 	{
 		if (*line)
 		{
-			// ici
+			child_process_for_externs(line, envp);
 			add_history(line);
 			free(line);
 		}
-		line = readline(" >");
+		line = readline(PROMPT);
 	}
-	clear_history();
+	rl_clear_history();
 	free(line);
 	return (0);
 }
