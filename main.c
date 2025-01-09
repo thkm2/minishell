@@ -2,22 +2,22 @@
 
 int main(int ac, char **av, char **envp)
 {
-	char *line;
+	char 	*line;
 
 	(void)ac;
 	(void)av;
-	line = readline(PROMPT);
+	line = readline(" >");
 	while(ft_strncmp(line, "exit", 4))
 	{
 		if (*line)
 		{
-			child_process_for_externs(line, envp);
+			// ici
 			add_history(line);
 			free(line);
 		}
-		line = readline(PROMPT);
+		line = readline(" >");
 	}
-	rl_clear_history();
+	clear_history();
 	free(line);
 	return (0);
 }
