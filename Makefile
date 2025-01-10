@@ -6,7 +6,7 @@ RM = rm -f
 
 SRC = main.c externs/externs.c externs/externs_utils.c \
 		envp/envp.c envp/utils.c \
-		builtins/echo.c builtins/env.c builtins/pwd.c
+		builtins/echo.c builtins/env.c builtins/pwd.c builtins/cd.c builtins/export.c builtins/unset.c
 
 OBJ = ${SRC:.c=.o}
 

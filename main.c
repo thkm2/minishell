@@ -3,6 +3,9 @@
 void	ft_echo(char **av);
 void	ft_env(t_env *env);
 void	ft_pwd(void);
+void	ft_cd(char **av, t_env *env);
+void	ft_export(char **av, t_env *env);
+void	ft_unset(char **av, t_env *env);
 
 int main(int ac, char **av, char **envp)
 {
@@ -32,6 +35,21 @@ int main(int ac, char **av, char **envp)
 			{
 				printf("built-in pwd\n");
 				ft_pwd();
+			}
+			else if (ft_strncmp(line, "cd", 2) == 0)
+			{
+				printf("built-in cd\n");
+				ft_cd(ft_split(line, ' '), env);
+			}
+			else if (ft_strncmp(line, "export", 6) == 0)
+			{
+				printf("built-in export\n");
+				ft_export(ft_split(line, ' '), env);
+			}
+			else if (ft_strncmp(line, "unset", 5) == 0)
+			{
+				printf("built-in unset\n");
+				ft_unset(ft_split(line, ' '), env);
 			}
 			else
 				child_process_for_externs(line, envp);

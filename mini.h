@@ -45,6 +45,7 @@ typedef struct s_env
 {
 	char			*name;
 	char			*value;
+	int				export;
 	struct s_env	*next;
 }	t_env;
 
@@ -52,7 +53,10 @@ int	which_cmd(char *cmd);
 int	is_special(char c);
 
 // envp
-void	add_env_node(t_env **env, char *name, char *value);
+void	add_env_node(t_env **env, char *name, char *value, int export);
 void	init_envp(t_env **env, char **envp);
+t_env	*get_in_envp(t_env *env, char *key, int size_key);
+void	change_value_in_envp(t_env *env, char *key, int size_key, char *new_value);
+void	delete_export_node(t_env **env, char *key, int size_key);
 
 #endif
