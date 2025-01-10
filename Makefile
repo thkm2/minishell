@@ -1,12 +1,10 @@
 NAME = minishell
 
-CC = cc -g -Wall -Wextra -Werror
+CC = cc -g -Wall -Wextra -Werror -I ./
 
 RM = rm -f
 
-SRC = main.c externs/externs.c externs/externs_utils.c \
-		envp/envp.c envp/utils.c \
-		builtins/echo.c builtins/env.c builtins/pwd.c builtins/cd.c builtins/export.c builtins/unset.c
+SRC = $(wildcard *.c) $(wildcard */*.c)
 
 OBJ = ${SRC:.c=.o}
 
