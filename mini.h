@@ -38,7 +38,7 @@ void	ft_free_split(char **tab);
 
 // EXECUTION
 
-int	redirect_operator(t_cmd *node, char **envp);
+int	redirect_operator(t_cmd *node, char **envp, t_env *env);
 
 // PARSING
 
@@ -84,6 +84,9 @@ void	ft_pwd(void);
 void	ft_cd(char **av, t_env *env);
 void	ft_export(char **av, t_env *env);
 void	ft_unset(char **av, t_env *env);
+
+// utils
+int		ft_strcmp(char *s1, char *s2);
 
 # define PROMPT " > "
 
