@@ -33,12 +33,15 @@ typedef struct s_env
 }	t_env;
 
 // externs
+char    *find_path(char *command);
 void	child_process_for_externs(char **tab, char **envp);
 void	ft_free_split(char **tab);
 
 // EXECUTION
 
 int	redirect_operator(t_cmd *node, char **envp, t_env *env);
+int	execute_pipe(t_cmd *cmd, char **envp, t_env *env);
+int	execute_command(t_cmd *cmd, char **envp, t_env *env);
 
 // PARSING
 

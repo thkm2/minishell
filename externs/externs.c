@@ -32,25 +32,34 @@ char	*find_path(char *command)
 void	child_process_for_externs(char **av_command, char **envp)
 {
 	char	*path;
-	pid_t 	pid;
+	pid_t	pid;
 
 	path = find_path(av_command[0]);
 	if (!path)
 	{
 		ft_printf("minishell: command not found: %s\n", av_command[0]);
-		//ft_free_split(av_command);
+		if (getenv("IN_PIPE"))
+			exit(1);
 		return ;
+	}
+	if (getenv("IN_PIPE"))
+	{
+		execve(path, av_command, envp);
+		free(path);
+		exit(1);
 	}
 	pid = fork();
 	if (pid == -1)
 	{
-		//ft_free_split(av_command);
 		free(path);
 		return ;
 	}
 	if (pid == 0)
+	{
 		execve(path, av_command, envp);
-	//ft_free_split(av_command);
+		free(path);
+		exit(1);
+	}
 	free(path);
 	waitpid(pid, NULL, 0);
 }
